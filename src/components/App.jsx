@@ -10,23 +10,31 @@ export function App() {
   const [bad, setBad] = useState(0);
 
  const btnHandler = e => {
-    const { name } = e.target;
-    setGood(ps => {
-      return { [name]: ps[name] + 1 };
-    });
-   setNeutral(ps => {
-      return { [name]: ps[name] + 1 };
-   });
-   setBad(ps => {
-      return { [name]: ps[name] + 1 };
-   });
+   const { name } = e.target;
+   switch (name) {
+      case 'good':
+        setGood(good => good + 1);
+        break;
+
+      case 'neutral':
+        setNeutral(neutral => neutral + 1);
+        break;
+
+      case 'bad':
+        setBad(bad => bad + 1);
+        break;
+
+      default:
+        throw new Error('Not supported type');
+    }
   }
 
-
+  const variants = Object.keys({ good, neutral, bad });
+  
   return (  <>
         <Section title = "Please leave feedback">
           
-          <FeedbackVariants variants={[good, neutral, bad]}
+          <FeedbackVariants variants={variants}
           onClick = {btnHandler}>
             
           </FeedbackVariants>
@@ -46,43 +54,3 @@ export function App() {
 }
 
 
-// export class App extends Component {
-//   state = {
-//   good: 0,
-//   neutral: 0,
-//   bad: 0
-//   }
-
-//   btnHandler = e => {
-//     const { name } = e.target;
-//     this.setState(ps => {
-//       return { [name]: ps[name] + 1 };
-//     });
-//   }
-  
-//   render() {
-//     const { good, neutral, bad } = this.state;
-//     return (
-//       <>
-//         <Section title = "Please leave feedback">
-          
-//           <FeedbackVariants variants={Object.keys(this.state)}
-//           onClick = {this.btnHandler}>
-            
-//           </FeedbackVariants>
-//         </Section>
-//         <Section title = "Statistics">
-//           { (good + bad + neutral)>0 ?
-//           <StatisticsData
-//             good={good}
-//             neutral={neutral}
-//             bad={bad}
-//             total={good + bad + neutral}
-//             positivePercentage = {((good*100)/ (good + bad + neutral)).toFixed(2) }
-//           /> : <Notification/>
-//          }
-//        </Section>
-//       </>
-//     )
-//   }
-// };

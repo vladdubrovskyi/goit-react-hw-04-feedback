@@ -4,6 +4,7 @@ import {StyledButton} from "components/FeedbackVariants/Button.styled"
 import PropTypes from 'prop-types';
 
 export const FeedbackVariants = (props) => {
+  
     const {variants, onClick} = props
     return (<StyledList>
       {variants.map(variant => {
